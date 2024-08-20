@@ -3,6 +3,35 @@ title: "day7_interactive"
 author: "BJ"
 format: html
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
+```
+
+```{r}
+penguins <- palmerpenguins::penguins
+
+#Refresher 1
+
+bd_penguins <- penguins |>
+  filter(island %in% c("Biscoe", "Dream")) |>
+  select(-year, -sex) |>
+  mutate(body_mass_kg = body_mass_g/1000) |>
+  rename(location = island)
+
+#Refresher 2
+
+adelie_penguins <- penguins |>
+  filter(species == "Adelie" & !is.na(flipper_length_mm)) |>
+  group_by(sex) |>
+  summarise(mean_flipper_length = mean(flipper_length_mm),
+            sd_flipper_length = sd(flipper_length_mm),
+            sample_size = n())
+
+```
 
